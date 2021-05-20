@@ -2,7 +2,6 @@ import React, { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import Loading from "./Loading";
 import Moment from "moment";
-import { GetTicketsForEvent } from "./CallAPI";
 import { SummaryLink } from "./SummaryDiv";
 import Flexbox from "./styled_components/Flexbox";
 import styled from "styled-components";
@@ -15,13 +14,10 @@ function Ad(props) {
   const [showTickets, setShowTickets] = useState(false);
 
   useMemo(
-    () =>
-      GetTicketsForEvent(data.IdW).then((res) => {
-        setTicketsLoaded(true);
-        res.sort((a, b) => a.Cena - b.Cena);
-        setTickets(res);
-      }),
-    []
+    () => {
+      setTicketsLoaded(true);
+      setTickets([]);
+    }, []
   );
 
   const noImgUrl =

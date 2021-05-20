@@ -5,7 +5,6 @@ import { TopbarDiv, TopbarContainer, TopbarLogo } from "./TopbarComponents";
 import { StyledButton, StyledLink } from "./styled_components/StyledButtons";
 import Flexbox from "./styled_components/Flexbox";
 import { useHistory } from "react-router";
-import { GetUserDetails } from "./CallAPI";
 import Loading from "./Loading";
 
 function Topbar(props) {
@@ -40,12 +39,10 @@ export function UserName(props) {
   const [detailsLoaded, setDetailsLoaded] = useState(false);
 
   useMemo(
-    () =>
-      GetUserDetails(currentUser.uid).then((res) => {
-        setDetails(res[0]);
-        setDetailsLoaded(true);
-      }),
-    []
+    () => {
+      setDetails({});
+      setDetailsLoaded(true);
+    }, []
   );
 
   return (

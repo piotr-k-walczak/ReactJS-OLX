@@ -26,7 +26,7 @@ export function CancelledTag(props) {
 
 export function InProgressTag(props) {
   return (
-    <StatusTag {...props} message={"W trakcie"} backgroundcolor="#47d435" />
+    <StatusTag {...props} message={"Aktualne"} backgroundcolor="#47d435" />
   );
 }
 

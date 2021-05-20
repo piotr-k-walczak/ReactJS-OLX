@@ -1,5 +1,4 @@
 import React, { useMemo, useState } from "react";
-import { GetTicketDetails } from "./CallAPI";
 
 export const CartContext = React.createContext();
 
@@ -18,9 +17,7 @@ export const CartProvider = ({ children }) => {
 
   useMemo(() => {
     tickets.forEach((ticket) => {
-      GetTicketDetails(ticket.ticketId).then((res) => {
-        SetMetadata(ticket.ticketId, res[0]);
-      });
+        SetMetadata({});
     });
   }, [tickets]);
 

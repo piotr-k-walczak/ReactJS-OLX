@@ -1,9 +1,7 @@
 import React, { useContext, useState } from "react";
-import { CartTicket } from "./CartTicket";
 import { useHistory } from "react-router-dom";
 import { CartContext, CalcTotal } from "./Cart";
 import { StyledButton } from "./styled_components/StyledButtons";
-import { PurchaseTickets } from "./CallAPI";
 import { AuthContext } from "./authentication/Auth";
 
 export function CartPage(props) {
@@ -24,14 +22,8 @@ function FullCart(props) {
   const [error, setError] = useState(false);
 
   function RequestPurchase(uid, tickets) {
-    PurchaseTickets(uid, tickets).then((res) => {
-      if (res.errno) {
-        setError(true);
-      } else {
         setTickets([]);
         history.push("/purchase");
-      }
-    });
   }
 
   function PaymentError(props) {
@@ -70,17 +62,6 @@ function Tickets(props) {
   var index = -1;
   return (
     <div>
-      {tickets.map((t) => {
-        index++;
-        return (
-          <CartTicket
-            data={t}
-            metadata={metadata[t.ticketId]}
-            id={index}
-            key={t.ticketId}
-          />
-        );
-      })}
     </div>
   );
 }

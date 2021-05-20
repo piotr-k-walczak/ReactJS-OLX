@@ -1,7 +1,6 @@
 import React, { useContext, useMemo, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { AuthContext } from "./authentication/Auth";
-import { AddNewEventWithTickets } from "./CallAPI";
 import { DetailsFormContainer } from "./DetailsPage";
 import { StyledInput } from "./styled_components/StyledInputs";
 import { StyledButton } from "./styled_components/StyledButtons";

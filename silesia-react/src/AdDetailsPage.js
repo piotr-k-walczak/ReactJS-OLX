@@ -2,7 +2,6 @@ import React, { useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import Loading from "./Loading";
 import Moment from "moment";
-import { GetEventDetails, GetTicketsForEvent } from "./CallAPI";
 import { DetailsPageContainer } from "./DetailsPage";
 
 export function AdDetailsPage(props) {

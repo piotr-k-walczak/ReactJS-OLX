@@ -1,6 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
 import { AuthContext } from "./authentication/Auth";
-import { GetUserTickets } from "./CallAPI";
 import Loading from "./Loading";
 import { Searchbar } from "./AdPage";
 
@@ -11,15 +10,8 @@ function AdsPage(props) {
   const [searchedPhrase, setSearchPhrase] = useState("");
 
   useEffect(() => {
-    GetUserTickets(currentUser.uid)
-      .then((res) => {
-        setTicketsLoaded(true);
-        setTickets(res);
-      })
-      .catch(() => {
-        setTicketsLoaded(true);
-        setTickets([]);
-      });
+      setTicketsLoaded(true);
+      setTickets([]);
   }, [currentUser]);
 
   return !ticketsLoaded ? (

@@ -17,7 +17,6 @@ import CartPage from "./CartPage";
 import CartButton from "./CartButton";
 import MainPage from "./MainPage";
 import SignUp from "./authentication/SignUp";
-import CompanySignUp from "./authentication/CompanySignUp";
 import ConfirmPage from "./PurchaseConfirmPage";
 import AddEventButton from "./AddEventButton";
 import Loading from "./Loading";
@@ -51,7 +50,6 @@ function MainSwitch(props) {
             <Route exact path="/" component={MainPage} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/signup" component={SignUp} />
-            <Route exact path="/signup-company" component={CompanySignUp} />
             <Route exact path="/ad" component={AdPage} />
             <Route path="/ad/:adId" component={AdDetailsPage} />
             <PrivateRoute exact path="/cart" component={CartPage} />

@@ -2,7 +2,6 @@ import React, { useCallback, useContext, useMemo, useState } from "react";
 import { withRouter, Redirect } from "react-router-dom";
 import app from "./base";
 import { AuthContext } from "./Auth";
-import { CreateNewUser } from "../CallAPI";
 import { AuthInput, AuthForm } from "./AuthComponents";
 import Loading from "../Loading";
 import { StyledText } from "../styled_components/StyledHeaders";

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Loading from "./Loading";
 import Ad from "./AdSummary";
-import { GetActiveEvents } from "./CallAPI";
 import styled from "styled-components";
 
 export const EventList = styled.div`
@@ -13,30 +12,23 @@ export const EventList = styled.div`
 `;
 
 function AdPage(props) {
-  const [events, setEvents] = useState([]);
-  const [eventsLoaded, setEventsLoaded] = useState(false);
+  const [ads, setAds] = useState([]);
+  const [adsLoaded, setAdsLoaded] = useState(false);
 
   const [searchPhrase, setSearchPhrase] = useState("");
 
   useEffect(() => {
-    GetActiveEvents()
-      .then((res) => {
-        setEventsLoaded(true);
-        setEvents(res || []);
-      })
-      .catch(() => {
-        setEvents([]);
-        setEventsLoaded(true);
-      });
+      setAdsLoaded(true);
+      setAds( []);
   }, []);
 
   return (
     <div>
-      <h1>Nadchodzące wydarzenia</h1>
+      <h1>Ogłoszenia</h1>
       <Searchbar searchPhrase={searchPhrase} setSearchPhrase={setSearchPhrase}/>
       <EventList>
-        {eventsLoaded ? (
-          events.filter(e => e.NazwaW.toLowerCase().includes(searchPhrase.toLowerCase())).map((event) => {
+        {adsLoaded ? (
+          ads.filter(e => e.NazwaW.toLowerCase().includes(searchPhrase.toLowerCase())).map((event) => {
             return <Ad data={event} key={event.IdW} />;
           })
         ) : (
@@ -66,7 +58,7 @@ const StyledSearchInput = styled.input`
 export function Searchbar(props){
   const {searchPhrase, setSearchPhrase, placeholder} = props;
 
-  return <StyledSearchInput type="text" placeholder={placeholder || "Znajdź wydarzenie"} value={searchPhrase} onChange={e => setSearchPhrase(e.target.value)}/>
+  return <StyledSearchInput type="text" placeholder={placeholder || "Znajdź ogłoszenie"} value={searchPhrase} onChange={e => setSearchPhrase(e.target.value)}/>
 }
 
 export default AdPage;
