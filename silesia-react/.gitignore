@@ -4,6 +4,10 @@
 /node_modules
 /.pnp
 .pnp.js
+silesia-react/node_modules
+silesia-react/.DS_Store
+.DS_Store
+
 
 # testing
 /coverage
