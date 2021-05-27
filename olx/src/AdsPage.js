@@ -14,10 +14,7 @@ function AdsPage(props) {
       setTickets([]);
   }, [currentUser]);
 
-  return !ticketsLoaded ? (
-    <Loading />
-  ) : (<></>
-  );
+  return <div></div>
 }
 
 export function AdsList(props) {

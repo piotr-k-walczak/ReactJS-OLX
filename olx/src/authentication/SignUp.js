@@ -49,14 +49,7 @@ const SignUp = ({ history }) => {
         app
           .auth()
           .createUserWithEmailAndPassword(email.value, password.value)
-          .then((user) => {
-            CreateNewUser(
-              user.user.uid,
-              name.value,
-              surname.value,
-              birthdate.value
-            );
-          })
+          .then((user) => {          })
           .then(() => history.push("/"))
           .catch((error) => {
             switch (error.code) {
@@ -136,7 +129,6 @@ const SignUp = ({ history }) => {
         <StyledButton type="submit" backgroundcolor="slateblue">
           Zarejestruj się
         </StyledButton>
-        <StyledLink to="/signup-company">Jesteś organizatorem?</StyledLink>
       </AuthForm>
     </div>
   );

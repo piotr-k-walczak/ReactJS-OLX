@@ -64,8 +64,8 @@ function MainSwitch(props) {
 }
 
 function ButtonSelection(props) {
-  const { isHost, pending } = useContext(AuthContext);
-  return !pending ? isHost ? <AddEventButton /> : <CartButton /> : <></>;
+  const { pending } = useContext(AuthContext);
+  return !pending ? <AddEventButton /> : <CartButton />;
 }
 
 export default App;

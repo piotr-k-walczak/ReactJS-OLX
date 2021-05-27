@@ -37,8 +37,7 @@ function FullCart(props) {
     );
   }
 
-  return (
-    <>
+  return <div>
       <Tickets />
       <Total tickets={tickets} metadata={metadata} />
       {error && <PaymentError />}
@@ -48,8 +47,7 @@ function FullCart(props) {
       >
         Zapłać
       </StyledButton>
-    </>
-  );
+    </div>;
 }
 
 function EmptyCart(props) {

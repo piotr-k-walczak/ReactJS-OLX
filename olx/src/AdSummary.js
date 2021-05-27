@@ -45,7 +45,7 @@ function Ad(props) {
       </Flexbox>
       {showTickets && (
         <TicketList>
-          {ticketsLoaded ? (<></>
+          {ticketsLoaded ? (<div></div>
             )
            : (
             <Loading />

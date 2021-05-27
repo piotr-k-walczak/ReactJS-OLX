@@ -1,7 +1,7 @@
-import * as firebase from "firebase/app";
+import firebase from "firebase/app";
 import "firebase/auth";
 
-const app = firebase.initializeApp({
+const app = firebase.initializeApp ({
   apiKey: "AIzaSyCiVqB0wXIZwz0g41tFcpD7r-O7WIL1oNQ",
   authDomain: "bilety-online.firebaseapp.com",
   databaseURL: "https://bilety-online.firebaseio.com",

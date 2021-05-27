@@ -13,34 +13,13 @@ export function AdDetailsPage(props) {
 
   const { adId } = useParams();
 
-  useMemo(
-    () =>
-      GetTicketsForEvent(adId).then((res) => {
-        res.sort((a, b) => a.Cena - b.Cena);
-        console.log(res);
-        setTicketsLoaded(true);
-        setTickets(res);
-      }),
-    []
-  );
-
-  useMemo(
-    () =>
-      GetEventDetails(adId).then((res) => {
-        console.log(res);
-        setEventLoaded(true);
-        setEvent(res[0]);
-      }),
-    []
-  );
-
   const noImgUrl =
     "https://dlaziemi.org/pl/wp-content/themes/garden/images/noimage.jpg";
 
   return (
     <DetailsPageContainer>
       {eventLoaded ? (
-        <>
+        <div>
           <img
             src={event.Grafika != "null" ? event.Grafika : noImgUrl}
             style={{ width: "400px", height: "200px", objectFit: "cover" }}
@@ -53,12 +32,12 @@ export function AdDetailsPage(props) {
           </div>
           <div className="event-details">{event.OpisW}</div>
           <div class="ticket-list" style={{ border: "none", width: "70%" }}>
-            {ticketsLoaded ? (<></>
+            {ticketsLoaded ? (<div></div>
             ) : (
               <Loading />
             )}
           </div>
-        </>
+        </div>
       ) : (
         <h1>Nic nie znaleziono.</h1>
       )}
