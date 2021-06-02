@@ -1,131 +1,109 @@
-import React, { useContext, useState, useMemo } from "react";
+import React from "react";
+import ReactDOM from "react-dom";
+import { Link, useHistory } from "react-router-dom";
+import styled from "styled-components";
+import { useSelector } from "react-redux";
 import app from "./authentication/base";
-import { AuthContext } from "./authentication/Auth";
-import { TopbarDiv, TopbarContainer, TopbarLogo } from "./TopbarComponents";
-import { StyledButton, StyledLink } from "./styled_components/StyledButtons";
-import Flexbox from "./styled_components/Flexbox";
-import { useHistory } from "react-router";
-import Loading from "./Loading";
 
-function Topbar(props) {
-  const { currentUser, isHost } = useContext(AuthContext);
+const CustomLink = styled(Link)`
+  color: ${(props) => props.color};
+`;
+
+const CustomTopbar = styled.div`
+    display: flex;
+    justify-content: space-between;
+    padding: 1em 2em;
+    background: #002f34;
+    font-size: 16px;
+    align-items: center;
+    align-content: center;
+
+    @media (max-width: 700px) {
+        flex-direction: column;
+    }
+`
+
+export function Topbar(props) {
   return (
-    <TopbarDiv>
-      <TopbarContainer>
-        <Flexbox>
-          <TopbarLogo />
-          {currentUser && <UpcomingEventsButtons />}
-        </Flexbox>
-        {currentUser ? (
-          <Flexbox>
-            <MyTicketsButton />
-            <SignOutButton />
-            <UserName />
-          </Flexbox>
-        ) : (
-          <Flexbox>
-            <SignUpButton />
-            <SignInButton />
-          </Flexbox>
-        )}
-      </TopbarContainer>
-    </TopbarDiv>
+    <CustomTopbar>
+      <Logo />
+      <UserButtons />
+    </CustomTopbar>
   );
 }
 
-export function UserName(props) {
-  const { currentUser } = useContext(AuthContext);
-  const [details, setDetails] = useState(null);
-  const [detailsLoaded, setDetailsLoaded] = useState(false);
-
-  useMemo(
-    () => {
-      setDetails({});
-      setDetailsLoaded(true);
-    }, []
+export function Logo(props) {
+  return (
+    <CustomLink to="/" color="yellow">
+      Ogłoszenia Lokalne
+    </CustomLink>
   );
+}
+
+export function UserButtons(props) {
+  const currentUser = useSelector((state) => state.currentUser);
+  const history = useHistory();
 
   return (
-    <span
+    <div
       style={{
-        padding: "0 1em",
-        borderLeft: "solid 2px lightgrey",
-        marginLeft: "1em",
+        display: "flex",
+        alignItems: "center",
       }}
     >
-      {detailsLoaded ? (
-        details.NazwaF ? (
-          details.NazwaF
-        ) : (
-          details.Imie
-        )
-      ) : (
-        <Loading />
-      )}
-    </span>
-  );
-}
-
-function SignOutButton(props) {
-  const history = useHistory();
-  const { setIsHost, setPending } = useContext(AuthContext);
-
-  return (
-    <StyledButton
-      onClick={() => app.auth().signOut()}
-      backgroundcolor="aquamarine"
-      style={{ marginLeft: "1em" }}
-    >
-      Wyloguj
-    </StyledButton>
-  );
-}
-
-function SignInButton(props) {
-  return (
-    <StyledLink
-      to="/login"
-      backgroundcolor="darkcyan"
-      style={{ marginLeft: "1em" }}
-    >
-      Zaloguj
-    </StyledLink>
-  );
-}
-
-function MyTicketsButton(props) {
-  return (
-    <StyledLink
-      to="/mytickets"
-      backgroundcolor="hotpink"
-      style={{ marginLeft: "1em" }}
-    >
-      Moje Bilety
-    </StyledLink>
-  );
-}
-
-function SignUpButton(props) {
-  return (
-    <StyledLink
-      to="/signup"
-      backgroundcolor="slateblue"
-      style={{ marginLeft: "1em" }}
-    >
-      Zarejestruj
-    </StyledLink>
-  );
-}
-
-function UpcomingEventsButtons(props) {
-  return (
-    <StyledLink
-      to="/event"
-      backgroundcolor="orangered"
-      style={{ marginLeft: "1em" }}
-    >
-      Wydarzenia
-    </StyledLink>
+      <CustomLink to="/login" color="white">
+        Moje konto
+      </CustomLink>
+      <div
+        style={{
+          height: ".5ch",
+          width: ".5ch",
+          background: "white",
+          margin: "0 1em",
+        }}
+      />
+      <CustomLink to="/post" color="pink">
+        Dodaj ogłoszenie
+      </CustomLink>
+      {
+          currentUser &&
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+          }}
+        >
+          <div
+            style={{
+              height: ".5ch",
+              width: ".5ch",
+              background: "white",
+              margin: "0 1em",
+            }}
+          />
+          <button
+            onClick={() => {
+              app
+                .auth()
+                 .signOut()
+                .then(() => history.push("/"));
+            }}
+            style={{
+              color: "orange",
+              textDecoration: "underline",
+              fontFamily: "monospace",
+              background: "none",
+              border: "none",
+              outline: "none",
+              cursor: "pointer",
+              fontSize: "16px"
+            }}
+          >
+            Wyloguj
+          </button>
+        </div>
+      }
+    </div>
   );
 }
 

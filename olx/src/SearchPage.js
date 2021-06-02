@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router, useParams } from "react-router-dom";
 import styled from "styled-components";
 import Topbar from "./Topbar";
 import Searchbar from "./Searchbar";
@@ -26,7 +26,9 @@ function AdGridLayout(props) {
   );
 }
 
-export function MainPage() {
+export function SearchPage() {
+  const { searchPhrase } = useParams();
+
   return (
     <AppLayout>
       <Topbar />
@@ -36,10 +38,10 @@ export function MainPage() {
           boxSizing: "border-box",
         }}
       >
-        <Searchbar />
+        <Searchbar startPhrase={searchPhrase} />
         <AdGridLayout>
           <AdCard
-            image="logo192.png"
+            image="/logo192.png"
             adTitle="Cyfrowe logo frameworku React.JS"
             date="10-10-2022 10:00"
             category_name="Technologia"
@@ -47,15 +49,7 @@ export function MainPage() {
             adId={1}
           />
           <AdCard
-            image="logo192.png"
-            adTitle="Cyfrowe logo frameworku React.JS"
-            date="10-10-2022 10:00"
-            category_name="Technologia"
-            category_color="blue"
-            adId={1}
-          />
-          <AdCard
-            image="logo192.png"
+            image="/logo192.png"
             adTitle="Cyfrowe logo frameworku React.JS"
             date="10-10-2022 10:00"
             category_name="Technologia"
@@ -68,4 +62,4 @@ export function MainPage() {
   );
 }
 
-export default MainPage;
+export default SearchPage;

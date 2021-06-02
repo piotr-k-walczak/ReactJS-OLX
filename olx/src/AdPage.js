@@ -1,64 +1,79 @@
-import React, { useEffect, useState } from "react";
-import Loading from "./Loading";
-import Ad from "./AdSummary";
+import React, { useEffect } from "react";
 import styled from "styled-components";
+import Topbar from "./Topbar";
+import Searchbar from "./Searchbar";
+import { useParams } from "react-router";
+import { getPostDetails } from "./callAPI";
+import { useDispatch } from "react-redux";
+import { setPostDetailsDispatch } from "./dispatchCreators";
+import { AdCategoryTag } from "./CategoryTag";
+import { MapContainer } from "./Map";
+import PayPal from "./PayPalButton";
+import Gallery from "./Gallery";
 
-export const EventList = styled.div`
-  width: 80%;
-  max-width: 800px;
-  display: flex;
-  flex-direction: column;
-  margin: auto;
+const AppLayout = styled.div`
+  grid-template-rows: auto 1fr;
 `;
 
-function AdPage(props) {
-  const [ads, setAds] = useState([]);
-  const [adsLoaded, setAdsLoaded] = useState(false);
+const AdContainer = styled.div`
+    border: 1px solid black;
+    background: white;
+    padding: 2em;
+    box-sizing: border-box
+    width: 75%;
+    margin: 2em auto;
+    max-width: 800px;
+    box-shadow: 2px 2px 4px 4px lightgray;
 
-  const [searchPhrase, setSearchPhrase] = useState("");
+    & > * {
+        margin: 1.5em auto;
+    }
+`;
 
-  useEffect(() => {
-      setAdsLoaded(true);
-      setAds( []);
-  }, []);
+const postData = {
+  title: "Nazwa produktu",
+  desc: "React.js (inne stosowane nazwy: React, ReactJS) – biblioteka języka programowania JavaScript, która wykorzystywana jest do tworzenia interfejsów graficznych aplikacji internetowych. Została stworzona przez Jordana Walke, programistę Facebooka, a zainspirowana przez rozszerzenie języka PHP – XHP. Często wykorzystywana do tworzenia aplikacji typu Single Page Application. ",
+  image: "/logo512.png",
+  price: 49.9,
+  date: "10-10-2022 10:00",
+};
+
+export function AdPage() {
+  const { postId } = useParams();
+  const dispatcher = useDispatch();
+
+  useEffect(
+    () => dispatcher(setPostDetailsDispatch(getPostDetails(postId))),
+    []
+  );
 
   return (
-    <div>
-      <h1>Ogłoszenia</h1>
-      <Searchbar searchPhrase={searchPhrase} setSearchPhrase={setSearchPhrase}/>
-      <EventList>
-        {adsLoaded ? (
-          ads.filter(e => e.NazwaW.toLowerCase().includes(searchPhrase.toLowerCase())).map((event) => {
-            return <Ad data={event} key={event.IdW} />;
-          })
-        ) : (
-          <Loading />
-        )}
-      </EventList>
-    </div>
+    <AppLayout>
+      <Topbar />
+      <AdContainer
+        style={{
+          boxSizing: "border-box",
+        }}
+      >
+        {/*<Gallery/>*/}
+        <img src={postData.image} style={{ height: "250px" }} />
+        <h2 style={{ marginBlock: "0" }}>
+          {postData.title}{" "}
+          <span style={{ fontWeight: 400 }}>
+            {postData.price.toFixed(2)} zł
+          </span>
+        </h2>
+        <div style={{ minWidth: "150px", width: "50%" }}>
+          <h3>Kup teraz</h3>
+          <PayPal />
+        </div>
+        <AdCategoryTag title="Technologie" color="blue" />
+        <div>{postData.desc}</div>
+        <MapContainer />
+        <div style={{ color: "gray" }}>{postData.date}</div>
+      </AdContainer>
+    </AppLayout>
   );
-}
-
-const StyledSearchInput = styled.input`
-  border: 0;
-  border-bottom: 2px solid grey;
-  color: white;
-  background: transparent;
-  text-align: center;
-  font-size: 1em;
-  margin-bottom: 1em;
-
-  &:focus, &:active {
-    outline: none;
-    border: 0;
-    border-bottom: 2px solid grey;
-  }
-`
-
-export function Searchbar(props){
-  const {searchPhrase, setSearchPhrase, placeholder} = props;
-
-  return <StyledSearchInput type="text" placeholder={placeholder || "Znajdź ogłoszenie"} value={searchPhrase} onChange={e => setSearchPhrase(e.target.value)}/>
 }
 
 export default AdPage;

@@ -1,15 +1,16 @@
 import React, { useCallback, useContext, useMemo, useState } from "react";
-import { withRouter, Redirect } from "react-router-dom";
+import { withRouter, Redirect, Link } from "react-router-dom";
 import app from "./base";
-import { AuthContext } from "./Auth";
-import { AuthInput, AuthForm } from "./AuthComponents";
+import { AuthInput, AuthForm, AuthButton } from "./AuthComponents";
 import Loading from "../Loading";
-import { StyledText } from "../styled_components/StyledHeaders";
-import { StyledButton, StyledLink } from "../styled_components/StyledButtons";
+import { useSelector } from "react-redux";
+import { mainColor } from "../Theme";
 
 const SignUp = ({ history }) => {
-  const { currentUser, pending } = useContext(AuthContext);
   const [error, setError] = useState("");
+
+  const currentUser = useSelector((state) => state.currentUser)
+  const currentUserPending = useSelector((state) => state.currentUserPending)
 
   const now = new Date();
   const minBirthday = new Date(
@@ -49,7 +50,6 @@ const SignUp = ({ history }) => {
         app
           .auth()
           .createUserWithEmailAndPassword(email.value, password.value)
-          .then((user) => {          })
           .then(() => history.push("/"))
           .catch((error) => {
             switch (error.code) {
@@ -83,7 +83,7 @@ const SignUp = ({ history }) => {
     return <Redirect to="/" />;
   }
 
-  if (pending) {
+  if (currentUserPending) {
     return <Loading />;
   }
 
@@ -97,6 +97,7 @@ const SignUp = ({ history }) => {
       }}
     >
       <AuthForm onSubmit={handleLogin}>
+        <Link to="/" style={{color:mainColor, fontSize:"1.5em", marginBottom:"1em"}}>Ogłoszenia lokalne</Link>
         <AuthInput name="name" type="text" placeholder="Imię" />
         <AuthInput name="surname" type="text" placeholder="Nazwisko" />
         <AuthInput name="email" type="email" placeholder="Email" />
@@ -108,13 +109,12 @@ const SignUp = ({ history }) => {
         />
         <div
           style={{
-            border: "2px solid #999",
-            borderRadius: "10px",
+            border: "1px solid lightgray",
             padding: "1em .5em .5em .5em",
             margin: ".3em",
           }}
         >
-          <StyledText>Data urodzenia</StyledText>
+          <div>Data urodzenia</div>
           <AuthInput
             type="date"
             name="birthdate"
@@ -126,9 +126,10 @@ const SignUp = ({ history }) => {
         {error != "" && (
           <span style={{ color: "red", margin: ".5em 0" }}>{error}</span>
         )}
-        <StyledButton type="submit" backgroundcolor="slateblue">
+        <AuthButton type="submit" backgroundcolor="slateblue">
           Zarejestruj się
-        </StyledButton>
+        </AuthButton>
+        <Link to="/login" style={{color:"gray"}}>Masz konto? Zaloguj się</Link>
       </AuthForm>
     </div>
   );

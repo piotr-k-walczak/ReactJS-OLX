@@ -1,12 +1,15 @@
 import React, { useContext } from "react";
+import { useSelector } from "react-redux";
 import { Route, Redirect } from "react-router-dom";
+import Loading from "../Loading";
 import { AuthContext } from "./Auth";
 
 const PrivateRoute = ({ component: RouteComponent, ...rest }) => {
-  const { currentUser, pending } = useContext(AuthContext);
+  const currentUser = useSelector((state) => state.currentUser)
+  const currentUserPending = useSelector((state) => state.currentUserPending)
 
-  if (pending) {
-    return <div style={{ color: "white" }}>Loading ...</div>;
+  if (currentUserPending) {
+    return <Loading></Loading>
   }
 
   return (

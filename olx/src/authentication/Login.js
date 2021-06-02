@@ -1,13 +1,18 @@
 import React, { useCallback, useContext, useState } from "react";
-import { withRouter, Redirect } from "react-router-dom";
+import { withRouter, Redirect, Link } from "react-router-dom";
 import app from "./base";
-import { AuthContext } from "./Auth";
-import { AuthInput, AuthButton, AuthForm } from "./AuthComponents";
+import { AuthInput, AuthForm, AuthButton } from "./AuthComponents";
 import Loading from "../Loading";
-import { StyledButton } from "../styled_components/StyledButtons";
+import { useSelector } from "react-redux";
+import { mainColor } from "../Theme";
 
 const Login = ({ history }) => {
+
   const [error, setError] = useState("");
+
+  const currentUser = useSelector((state) => state.currentUser)
+  const currentUserPending = useSelector((state) => state.currentUserPending)
+  
   const handleLogin = useCallback(
     async (event) => {
       event.preventDefault();
@@ -31,13 +36,11 @@ const Login = ({ history }) => {
     [history]
   );
 
-  const { currentUser, pending } = useContext(AuthContext);
-
   if (currentUser) {
     return <Redirect to="/" />;
   }
 
-  if (pending) {
+  if (currentUserPending) {
     return <Loading />;
   }
 
@@ -51,14 +54,16 @@ const Login = ({ history }) => {
       }}
     >
       <AuthForm onSubmit={handleLogin}>
+        <Link to="/" style={{color:mainColor, fontSize:"1.5em", marginBottom:"1em"}}>Ogłoszenia lokalne</Link>
         <AuthInput name="email" type="email" placeholder="Email" />
         <AuthInput name="password" type="password" placeholder="Hasło" />
         {error != "" && (
           <span style={{ color: "red", margin: ".5em 0" }}>{error}</span>
         )}
-        <StyledButton type="submit" backgroundcolor="darkcyan">
+        <AuthButton type="submit" style={{marginTop:"1em"}}>
           Zaloguj się
-        </StyledButton>
+        </AuthButton>
+        <Link to="/register" style={{color:"gray"}}>Nie masz konta? Zarejestruj się</Link>
       </AuthForm>
     </div>
   );

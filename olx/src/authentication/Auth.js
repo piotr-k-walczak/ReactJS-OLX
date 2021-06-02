@@ -1,20 +1,17 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { setUserDispatch } from "../dispatchCreators";
 import app from "./base";
 
-export const AuthContext = React.createContext();
-
 export const AuthProvider = ({ children }) => {
-  const [currentUser, setCurrentUser] = useState(null);
-  const [pending, setPending] = useState(false);
+  const dispatcher = useDispatch()
 
   useEffect(() => {
     app.auth().onAuthStateChanged((user) => {
-      setCurrentUser(user);
+      dispatcher(setUserDispatch(user));
   })});
 
-  return (
-    <AuthContext.Provider value={{ currentUser, pending }}>
-      {children}
-    </AuthContext.Provider>
-  );
+  return <div>
+    {children}
+  </div>
 };
