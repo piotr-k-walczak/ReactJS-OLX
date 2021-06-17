@@ -5,9 +5,10 @@ export function setUserDispatch(uid){
     }
 }
 
+
 export function setPostDetailsDispatch(details){
     return {
-        type: "auth/setUser",
+        type: "post/setDetails",
         payload: details
     }
 }

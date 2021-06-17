@@ -14,3 +14,11 @@ body {
 #root {
   font-family: monospace;
 }
+
+*,
+*::after,
+*::before {
+  flex-grow: 0;
+  box-sizing: border-box;
+  font-family: monospace;
+}

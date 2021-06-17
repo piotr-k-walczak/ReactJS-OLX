@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import { Link, useHistory } from "react-router-dom";
 import { mainColor } from "./Theme";
@@ -32,6 +32,11 @@ const CustomButton = styled.button`
 export function Searchbar(props) {
   const [searchInput, setSeachInput] = useState(props.startPhrase || "Czego szukasz?");
   const history = useHistory()
+
+  useEffect(() => {
+    props.onChange(searchInput)
+  }, [searchInput])
+
   return (
     <div
       style={{

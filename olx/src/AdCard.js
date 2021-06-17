@@ -11,7 +11,8 @@ const Card = styled(Link)`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 1.5em;
+  align-items: start;
+  padding: 0.5em 1em;
   background: white;
   box-shadow: 2px 2px 4px 4px lightgray;
   border: 1px solid black;
@@ -25,12 +26,12 @@ const Card = styled(Link)`
     cursor: pointer;
   }
 
-text-decoration: none;
+  text-decoration: none;
 
   & * {
-      color: black;
-      text-decoration: none;
-      border: none;
+    color: black;
+    text-decoration: none;
+    border: none;
   }
 
   & > div > * {
@@ -39,19 +40,26 @@ text-decoration: none;
 `;
 
 export function AdCard(props) {
-  const { adId, image, adTitle, desc, date, category_name, category_color } = props;
+  const { Id, Url, Description, Header, Price, SubCategoryName, Negotiable, Paid, Expired } =
+    props.hit;
   return (
-    <Card to={`/post/${adId}`} category_color={category_color}>
-      <img src={image} />
+    <Card to={`/post/${Id}`}>
       <div
         style={{
           padding: ".5em 0",
           boxSizing: "border-box",
+          textAlign: "left",
         }}
       >
-        <h3>{adTitle}</h3>
-        <AdCategoryTag title={category_name} color={category_color} />
-        <div style={{ color: "gray" }}>{date}</div>
+        <h5>{Header}</h5>
+        <div>{Description}</div>
+        <h5 style={{ color: "gray" }}>
+          {Price == 0 ? "Free" : Price + " zł"}{" "}
+          {Paid ? <span style={{ color: "red" }}>Sold</span> : Expired != 0 ? <span style={{ color: "green" }}>Expired</span> : Negotiable != "false" && Negotiable != "0" && (
+            <span style={{ color: "blue" }}>Negotiable</span>
+          )}
+        </h5>
+        <AdCategoryTag title={SubCategoryName} color="blue" />
       </div>
     </Card>
   );

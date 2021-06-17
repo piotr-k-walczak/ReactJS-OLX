@@ -1,27 +1,24 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 import app from "./authentication/base";
-
-const CustomLink = styled(Link)`
-  color: ${(props) => props.color};
-`;
+import { CustomLink, CustomButton } from "./Styled";
 
 const CustomTopbar = styled.div`
-    display: flex;
-    justify-content: space-between;
-    padding: 1em 2em;
-    background: #002f34;
-    font-size: 16px;
-    align-items: center;
-    align-content: center;
+  display: flex;
+  justify-content: space-between;
+  padding: 1em 2em;
+  background: #002f34;
+  font-size: 16px;
+  align-items: center;
+  align-content: center;
 
-    @media (max-width: 700px) {
-        flex-direction: column;
-    }
-`
+  @media (max-width: 700px) {
+    flex-direction: column;
+  }
+`;
 
 export function Topbar(props) {
   return (
@@ -35,7 +32,7 @@ export function Topbar(props) {
 export function Logo(props) {
   return (
     <CustomLink to="/" color="yellow">
-      Ogłoszenia Lokalne
+      Website.com
     </CustomLink>
   );
 }
@@ -51,28 +48,11 @@ export function UserButtons(props) {
         alignItems: "center",
       }}
     >
-      <CustomLink to="/login" color="white">
-        Moje konto
-      </CustomLink>
-      <div
-        style={{
-          height: ".5ch",
-          width: ".5ch",
-          background: "white",
-          margin: "0 1em",
-        }}
-      />
-      <CustomLink to="/post" color="pink">
-        Dodaj ogłoszenie
-      </CustomLink>
-      {
-          currentUser &&
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-          }}
-        >
+      {currentUser ? (
+        <React.Fragment>
+          <CustomLink to="/account" color="white">
+            My Account
+          </CustomLink>
           <div
             style={{
               height: ".5ch",
@@ -81,28 +61,36 @@ export function UserButtons(props) {
               margin: "0 1em",
             }}
           />
-          <button
+          <CustomLink to="/new" color="pink">
+            Post an Ad
+          </CustomLink>
+          <div
+            style={{
+              height: ".5ch",
+              width: ".5ch",
+              background: "white",
+              margin: "0 1em",
+            }}
+          />
+          <CustomButton
             onClick={() => {
               app
                 .auth()
-                 .signOut()
+                .signOut()
                 .then(() => history.push("/"));
             }}
-            style={{
-              color: "orange",
-              textDecoration: "underline",
-              fontFamily: "monospace",
-              background: "none",
-              border: "none",
-              outline: "none",
-              cursor: "pointer",
-              fontSize: "16px"
-            }}
+            color="orange"
           >
-            Wyloguj
-          </button>
-        </div>
-      }
+            Sign Out
+          </CustomButton>
+        </React.Fragment>
+      ) : (
+        <CustomLink to="/login" color="lightgreen">
+          Login
+        </CustomLink>
+      )}
+
+      {currentUser && <React.Fragment></React.Fragment>}
     </div>
   );
 }

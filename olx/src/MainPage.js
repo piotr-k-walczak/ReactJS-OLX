@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import styled from "styled-components";
 import Topbar from "./Topbar";
@@ -6,7 +6,7 @@ import Searchbar from "./Searchbar";
 import { AdCard } from "./AdCard";
 
 const AppLayout = styled.div`
-  grid-template-rows: auto 1fr;
+   ;
 `;
 
 function AdGridLayout(props) {
@@ -16,7 +16,7 @@ function AdGridLayout(props) {
         display: "grid",
         padding: "2em",
         boxSizing: "border-box",
-        gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
+        gridTemplateColumns: "repeat(auto-fill, minmax(400px, 1fr))",
         gap: "1em",
         width: "100%",
       }}
@@ -27,44 +27,42 @@ function AdGridLayout(props) {
 }
 
 export function MainPage() {
+  const [hits, setHits] = useState([]);
+
+  function fetchHits(text) {
+    fetch(
+      `http://164.90.162.213:7700/indexes/ads/search${
+        text != "" ? "?q=" + text : ""
+      }`
+    )
+      .then((res) => {
+        return res.json();
+      })
+      .then((json) => setHits(json.hits));
+  }
+
+  useMemo(() => fetchHits(""), []);
+
+  useMemo(() => console.log(hits), [hits]);
+
   return (
-    <AppLayout>
-      <Topbar />
+    <div style={{ gridTemplateColumns: "auto 1fr" }}>
       <div
         style={{
           padding: "2em",
           boxSizing: "border-box",
         }}
       >
-        <Searchbar />
+        <Searchbar onChange={fetchHits} />
         <AdGridLayout>
-          <AdCard
-            image="logo192.png"
-            adTitle="Cyfrowe logo frameworku React.JS"
-            date="10-10-2022 10:00"
-            category_name="Technologia"
-            category_color="blue"
-            adId={1}
-          />
-          <AdCard
-            image="logo192.png"
-            adTitle="Cyfrowe logo frameworku React.JS"
-            date="10-10-2022 10:00"
-            category_name="Technologia"
-            category_color="blue"
-            adId={1}
-          />
-          <AdCard
-            image="logo192.png"
-            adTitle="Cyfrowe logo frameworku React.JS"
-            date="10-10-2022 10:00"
-            category_name="Technologia"
-            category_color="blue"
-            adId={1}
-          />
+          {hits.length == 0 ? (
+            <h4 style={{ gridColumn: "1/-1" }}>Nothing found</h4>
+          ) : (
+            hits.map((hit) => <AdCard hit={hit} key={hit.Id} />)
+          )}
         </AdGridLayout>
       </div>
-    </AppLayout>
+    </div>
   );
 }
 

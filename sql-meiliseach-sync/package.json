@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "meilisearch": "^0.19.0",
+    "node-fetch": "^2.6.1"
+  }
+}

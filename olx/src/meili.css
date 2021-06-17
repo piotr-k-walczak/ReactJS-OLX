@@ -1,0 +1,73 @@
+.ais-SearchBox-input {
+  padding: 0.5em 1em;
+  width: 50%;
+  min-width: 200px;
+  border-radius: none;
+  background: white;
+  border: 1px solid gray;
+}
+
+.ais-SearchBox-input:focus, .ais-SearchBox-input:active {
+  outline: none;
+}
+
+.ais-SearchBox-submit, .ais-SearchBox-reset {
+  background: none;
+  margin-left: 1em;
+  border: 1px solid gray;
+  padding: 0.5em 1em;
+}
+
+.ais-SearchBox-submit:hover, .ais-SearchBox-reset:hover {
+  cursor: pointer;
+}
+
+.ais-SearchBox-reset:hover {
+  background-color: red;
+  border-color: none;
+}
+
+.ais-SearchBox-reset:hover svg {
+  fill: white;
+}
+
+.ais-SearchBox-submit:hover {
+  background-color: blue;
+  border-color: none;
+}
+
+.ais-SearchBox-submit:hover svg {
+  fill: white;
+}
+
+.ais-RefinementList-checkbox {
+  border-radius: 0;
+}
+
+ul {
+  list-style-type: none;
+  padding-inline-start: 0;
+}
+
+.ais-RefinementList-label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ais-RefinementList-label > * {
+  margin: 0 .2em;
+}
+
+.ais-RefinementList-count {
+  padding: 0.2em 0.5em;
+  margin: 0.25em 0.5em;
+  background-color: lightgray;
+  border: 1px solid black;
+}
+
+.ais-RefinementList-item--selected .ais-RefinementList-count {
+  background-color: blue;
+  color: white;
+  border-color: white;
+}

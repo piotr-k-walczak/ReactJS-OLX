@@ -6,10 +6,11 @@ import app from "./base";
 export const AuthProvider = ({ children }) => {
   const dispatcher = useDispatch()
 
+  useEffect(() => dispatcher(setUserDispatch(null, true)))
+
   useEffect(() => {
-    app.auth().onAuthStateChanged((user) => {
-      dispatcher(setUserDispatch(user));
-  })});
+    app.auth().onAuthStateChanged((user) => dispatcher(setUserDispatch(user))
+  )});
 
   return <div>
     {children}

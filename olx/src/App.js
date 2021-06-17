@@ -9,9 +9,8 @@ import { AuthProvider } from "./authentication/Auth";
 function App() {
   return (
     <Router>
-      <AuthProvider>
-        <AppRouting />
-      </AuthProvider>
+      <AuthProvider/>
+      <AppRouting />
     </Router>
   );
 }

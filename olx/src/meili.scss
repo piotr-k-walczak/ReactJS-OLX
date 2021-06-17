@@ -1,0 +1,76 @@
+$spacing: 1em;
+
+.ais-SearchBox-input {
+    padding: ($spacing / 2) $spacing;
+    width: 50%;
+    min-width: 200px;
+    border-radius: none;
+    background: white;
+    border: 1px solid gray;
+    
+    &:focus,
+    &:active {
+      outline: none;
+    }
+}
+
+.ais-SearchBox-submit, .ais-SearchBox-reset {
+  background: none;
+  margin-left: $spacing;
+  border: 1px solid gray;
+  padding: ($spacing / 2) $spacing;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+@mixin button-style($backColor) {
+  &:hover {
+    background-color: $backColor;
+    border-color: none;
+    & svg {
+      fill: white;
+    }
+  }
+}
+
+.ais-SearchBox-reset {
+  @include button-style(red)
+}
+
+.ais-SearchBox-submit {
+  @include button-style(blue)
+}
+
+.ais-RefinementList-checkbox {
+  border-radius: 0;
+}
+
+ul {
+  list-style-type: none;
+  padding-inline-start: 0;
+}
+
+.ais-RefinementList-label{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  & > * {
+    margin: 0 .2em;
+  }
+}
+
+.ais-RefinementList-count {
+  padding: ($spacing / 5) ($spacing / 2);
+  margin: ($spacing / 4) ($spacing / 2);
+  background-color: lightgray;
+  border: 1px solid black;
+}
+
+
+.ais-RefinementList-item--selected  .ais-RefinementList-count {
+  background-color: blue;
+  color: white;
+  border-color: white;;
+}

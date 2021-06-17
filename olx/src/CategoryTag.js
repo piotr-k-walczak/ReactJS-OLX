@@ -7,7 +7,7 @@ export function AdCategoryTag(props) {
   return (
     <div
       style={{
-        border: `1px solid ${color}`,
+        border: `1px solid ${color || "black"}`,
         color: color,
         padding: ".25em 1em",
         display: "flex",
@@ -15,7 +15,6 @@ export function AdCategoryTag(props) {
         alignItems: "center",
       }}
     >
-      {/*<img src="logo192.png" style={{ width: "1em", height: "1em" }} />*/}
       {title}
     </div>
   );

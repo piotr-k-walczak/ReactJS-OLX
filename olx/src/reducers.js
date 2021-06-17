@@ -1,18 +1,16 @@
 const initialState = {
   currentUser: null,
-  currentUserPending: false,
-  posts: [],
-  postsPending: false,
-  postDetails: null,
-  postDetailsPending: false
+  currentUserPending: true,
 };
 
 export default function appReducer(state = initialState, action) {
   switch (action.type) {
-    case "auth/setUser": return {
+    case "auth/setUser": {
+      return {
       ...state,
       currentUser: action.payload,
-      currentUserPending: action.payload ? true : false
+      currentUserPending: false
+      }
     }
     case "post/setDetails": return {
       ...state,

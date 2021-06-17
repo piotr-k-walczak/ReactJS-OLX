@@ -9,8 +9,8 @@ import { mainColor } from "../Theme";
 const SignUp = ({ history }) => {
   const [error, setError] = useState("");
 
-  const currentUser = useSelector((state) => state.currentUser)
-  const currentUserPending = useSelector((state) => state.currentUserPending)
+  const currentUser = useSelector((state) => state.currentUser);
+  const currentUserPending = useSelector((state) => state.currentUserPending);
 
   const now = new Date();
   const minBirthday = new Date(
@@ -19,17 +19,36 @@ const SignUp = ({ history }) => {
     now.getDay()
   );
 
+  function postUserData(name, lastName, email, birthdate, uid) {
+    const data = {
+      Name: name,
+      LastName: lastName,
+      Email: email,
+      BirthDate: "1000-01-01",
+      Password: "",
+      SSO: uid,
+    };
+
+    console.log(data);
+
+    fetch("http://164.90.162.213:3000/users", {
+      method: "POST",
+      mode: "cors",
+      cache: "no-cache",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      redirect: "follow",
+      referrerPolicy: "no-referrer",
+      body: JSON.stringify(data),
+    }).then((res) => console.log(res));
+  }
+
   const handleLogin = useCallback(
     async (event) => {
       event.preventDefault();
-      const {
-        name,
-        surname,
-        email,
-        password,
-        repassword,
-        birthdate,
-      } = event.target.elements;
+      const { name, surname, email, password, repassword, birthdate } =
+        event.target.elements;
       try {
         if (password.value != repassword.value) {
           setError("Hasła muszą być takie same.");
@@ -50,6 +69,9 @@ const SignUp = ({ history }) => {
         app
           .auth()
           .createUserWithEmailAndPassword(email.value, password.value)
+          .then((user) =>
+            postUserData(name.value, surname.value, email.value, birthdate.value, user.user.uid)
+          )
           .then(() => history.push("/"))
           .catch((error) => {
             switch (error.code) {
@@ -97,7 +119,12 @@ const SignUp = ({ history }) => {
       }}
     >
       <AuthForm onSubmit={handleLogin}>
-        <Link to="/" style={{color:mainColor, fontSize:"1.5em", marginBottom:"1em"}}>Ogłoszenia lokalne</Link>
+        <Link
+          to="/"
+          style={{ color: mainColor, fontSize: "1.5em", marginBottom: "1em" }}
+        >
+          Ogłoszenia lokalne
+        </Link>
         <AuthInput name="name" type="text" placeholder="Imię" />
         <AuthInput name="surname" type="text" placeholder="Nazwisko" />
         <AuthInput name="email" type="email" placeholder="Email" />
@@ -129,7 +156,9 @@ const SignUp = ({ history }) => {
         <AuthButton type="submit" backgroundcolor="slateblue">
           Zarejestruj się
         </AuthButton>
-        <Link to="/login" style={{color:"gray"}}>Masz konto? Zaloguj się</Link>
+        <Link to="/login" style={{ color: "gray" }}>
+          Masz konto? Zaloguj się
+        </Link>
       </AuthForm>
     </div>
   );

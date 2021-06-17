@@ -15,7 +15,7 @@ export const AuthInput = styled.input`
   margin: 8px;
   padding: 5px;
   text-align: center;
-  
+
   & > {
     margin: 2em;
   }
@@ -43,24 +43,24 @@ export const AuthForm = styled.form`
 `;
 
 export const AuthButton = styled.button`
-text-decoration: underline;
-font-weight: 500;
-font-size: 1.25em;
-font-family: monospace;
-background: none;
-border: none;
-outline: none;
-color: aqua;
-padding: .5em;
+  text-decoration: underline;
+  font-weight: 500;
+  font-size: 1.25em;
+  font-family: monospace;
+  background: none;
+  border: none;
+  outline: none;
+  color: aqua;
+  padding: 0.5em;
 
-&:hover {
-  text-decoration: line-through;
-  color: orange;
-  cursor: pointer;
-}
+  &:hover {
+    text-decoration: line-through;
+    color: orange;
+    cursor: pointer;
+  }
 
-&:active {
-  color: blue;
-  font-weight: bold;
-}
-`
+  &:active {
+    color: blue;
+    font-weight: bold;
+  }
+`;
