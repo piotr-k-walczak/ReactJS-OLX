@@ -43,8 +43,6 @@ export function MainPage() {
 
   useMemo(() => fetchHits(""), []);
 
-  useMemo(() => console.log(hits), [hits]);
-
   return (
     <div style={{ gridTemplateColumns: "auto 1fr" }}>
       <div

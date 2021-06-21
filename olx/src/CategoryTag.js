@@ -13,6 +13,7 @@ export function AdCategoryTag(props) {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
+        width:"100%"
       }}
     >
       {title}

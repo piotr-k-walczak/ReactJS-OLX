@@ -21,12 +21,21 @@ export function NegotiableChart(props) {
 
 export function CategoriesChart(props) {
   const { categories } = props;
+  const shapes = ['square', 'circle', 'diamond', 'triangle']
   const data = {
     labels: categories.map((cat) => cat.SubcategoryName),
     datasets: [
       {
         data: categories.map((cat) => cat.Count),
         backgroundColor: [
+            pattern.draw('square', "#" + Math.floor(Math.random()*16777215).toString(16)),
+            pattern.draw('circle', "#" + Math.floor(Math.random()*16777215).toString(16)),
+            pattern.draw('diamond', "#" + Math.floor(Math.random()*16777215).toString(16)),
+            pattern.draw('triangle', "#" + Math.floor(Math.random()*16777215).toString(16)),
+            pattern.draw('square', "#" + Math.floor(Math.random()*16777215).toString(16)),
+            pattern.draw('circle', "#" + Math.floor(Math.random()*16777215).toString(16)),
+            pattern.draw('diamond', "#" + Math.floor(Math.random()*16777215).toString(16)),
+            pattern.draw('triangle', "#" + Math.floor(Math.random()*16777215).toString(16)),
             pattern.draw('square', "#" + Math.floor(Math.random()*16777215).toString(16)),
             pattern.draw('circle', "#" + Math.floor(Math.random()*16777215).toString(16)),
             pattern.draw('diamond', "#" + Math.floor(Math.random()*16777215).toString(16)),

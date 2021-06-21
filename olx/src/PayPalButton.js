@@ -24,7 +24,7 @@ export default function PayPalButtons(props) {
       redirect: "follow",
       referrerPolicy: "no-referrer",
       body: JSON.stringify(data()),
-    }).then((res) => history.push("/"))
+    }).then((res) => history.push("/"));
   }
 
   function data() {
@@ -44,25 +44,31 @@ export default function PayPalButtons(props) {
           width: "70%",
         }}
       >
-        <h5 style={{ margin: ".5em" }}>Kup teraz</h5>
-        <PayPalButton
-          {...props}
-          createOrder={(data, actions) => {
-            return actions.order.create({
-              purchase_units: [
-                {
-                  amount: {
-                    value: price,
-                    currency:"PLN"
-                  },
-                },
-              ],
-            });
-          }}
-          onSuccess={(details, data) => {
-            post()
-          }}
-        />
+        {userID ? (
+          <React.Fragment>
+            <h5 style={{ margin: ".5em" }}>Kup teraz</h5>
+            <PayPalButton
+              {...props}
+              createOrder={(data, actions) => {
+                return actions.order.create({
+                  purchase_units: [
+                    {
+                      amount: {
+                        value: price,
+                        currency: "PLN",
+                      },
+                    },
+                  ],
+                });
+              }}
+              onSuccess={(details, data) => {
+                post();
+              }}
+            />
+          </React.Fragment>
+        ) : (
+          <h5>You must login before purchase</h5>
+        )}
       </BorderedDiv>
     </LoadingWrapper>
   );

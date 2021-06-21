@@ -32,7 +32,7 @@ export function Topbar(props) {
 export function Logo(props) {
   return (
     <CustomLink to="/" color="yellow">
-      Website.com
+      OLX Jr.
     </CustomLink>
   );
 }

@@ -76,7 +76,7 @@ export function AdPage() {
                 {post.Header}
               </h2>
               <h2 style={{ marginBlock: "0", marginTop: ".5em" }}>
-                {post.Price && post.Price.toFixed(2)} zł
+                {post.Price == 0 ? "Free" : post.Price && post.Price.toFixed(2) + " zł "}
               </h2>
               {
                 post.Paid ? <h5 style={{color:"red"}}>Sold</h5> : 
@@ -86,7 +86,7 @@ export function AdPage() {
               <div>{post.Description}</div>
               <AdCategoryTag title={post.SubCategoryName} color="blue" />
               {
-                userID != post.UserSso && !post.Paid && post.Expired == 0 &&
+                userID != post.UserSso && !post.Paid && post.Expired == 0 && post.Price > 0 &&
                 <PayPal adId={postId} price={post.Price} />
               }
               <div style={{ color: "gray" }}>Due Date: {post.DueDate}</div>

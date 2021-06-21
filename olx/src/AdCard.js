@@ -49,6 +49,7 @@ export function AdCard(props) {
           padding: ".5em 0",
           boxSizing: "border-box",
           textAlign: "left",
+          width:"100%"
         }}
       >
         <h5>{Header}</h5>

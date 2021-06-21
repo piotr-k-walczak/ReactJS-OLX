@@ -15,7 +15,12 @@ export function UserPage(props) {
   const [expiredAdsPending, setExpiredAdsPending] = useState(true);
   const [boughtAdsPending, setBoughtAdsPending] = useState(true);
   const [adsPending, setAdsPending] = useState(true);
-  const [adError, setAdError] = useState(null);
+  
+  const [adError, setAdError] = useState(false);
+  const [paidAdError, setPaidAdError] = useState(false);
+  const [boughtdError, setBoughtError] = useState(false);
+  const [expiredAdError, setExpiredAdError] = useState(false);
+  
   const [userError, setUserError] = useState(null);
 
   const userID = useSelector((state) =>
@@ -41,7 +46,7 @@ export function UserPage(props) {
       if (res.status == 200) {
         res.json().then(json => setPaidAds(json));
       } else {
-        setAdError(true);
+        setPaidAdError(true);
       }
       setPaidAdsPending(false);
     });
@@ -52,7 +57,7 @@ export function UserPage(props) {
       if (res.status == 200) {
         res.json().then(json => setExpiredAds(json));
       } else {
-        setAdError(true);
+        setExpiredAdError(true);
       }
       setExpiredAdsPending(false);
     });
@@ -63,7 +68,7 @@ export function UserPage(props) {
       if (res.status == 200) {
         res.json().then(json => setBoughtAds(json));
       } else {
-        setAdError(true);
+        setBoughtError(true);
       }
       setBoughtAdsPending(false);
     });
@@ -101,10 +106,10 @@ export function UserPage(props) {
       >
         <LoadingWrapper pending={adsPending && expiredAdsPending && paidAdsPending && boughtAdsPending}>
           <div>
-          {adError ? <AdContainer><h5>An error has occured</h5></AdContainer> : <UserAds hits={boughtAds} header="Bought" emptyMessage="Nothing bought"/>}
+          {boughtdError ? <AdContainer><h5>An error has occured</h5></AdContainer> : <UserAds hits={boughtAds} header="Bought" emptyMessage="Nothing bought"/>}
           {adError ? <AdContainer><h5>An error has occured</h5></AdContainer> : <UserAds hits={ads} header="Active ads" emptyMessage="No active ads"/>}
-          {adError ? <AdContainer><h5>An error has occured</h5></AdContainer> : <UserAds hits={paidAds} header="Sold" emptyMessage="Nothing sold"/>}
-          {adError ? <AdContainer><h5>An error has occured</h5></AdContainer> : <UserAds hits={expiredAds} header="Expired ads" emptyMessage="No expired ads"/>}
+          {paidAdError ? <AdContainer><h5>An error has occured</h5></AdContainer> : <UserAds hits={paidAds} header="Sold" emptyMessage="Nothing sold"/>}
+          {expiredAdError ? <AdContainer><h5>An error has occured</h5></AdContainer> : <UserAds hits={expiredAds} header="Expired ads" emptyMessage="No expired ads"/>}
           </div>
         </LoadingWrapper>
         <LoadingWrapper pending={userDetailsPening}>
